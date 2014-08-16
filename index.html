@@ -68,14 +68,15 @@
         var logo = null;
 
         logoImg.onload = function() {
+
+          imageSize = calculateAspectRatioFit(logoImg.width, logoImg.height, (canvas.width*0.75), (canvas.height*0.75));
+
           logo = {
               img: logoImg,
-              x: (canvas.width/2) - (logoImg.width/2),
-              y: (canvas.height/2) - (logoImg.height/2)
+              x: (canvas.width/2) - (imageSize.width/2),
+              y: (canvas.height/2) - (imageSize.height/2)
           }
-
-          imageSize = calculateAspectRatioFit(logo.img.width, logo.img.height, (canvas.width*0.75), (canvas.height*0.75));
-
+          
           c.drawImage(
             logoImg,
             logo.x,
@@ -89,7 +90,7 @@
           var textWidth = c.measureText(phrase);
           var xCoord = (canvas.width/2)-(textWidth.width/2);
           c.fillStyle = '#0000FF';
-          c.fillText(phrase, xCoord, (logo.y + logo.img.height) + 50);
+          c.fillText(phrase, xCoord, (logo.y + imageSize.height) + 30);
         }
       }
 
