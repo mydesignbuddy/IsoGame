@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+    body {
+        background: #000;
+    }
+</style>
+    <script src="//code.createjs.com/easeljs-0.7.0.min.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Stardos+Stencil:700' rel='stylesheet' type='text/css' />
+  
+    <script>
+        function init() {
+            // code here.
+            var stage = new createjs.Stage("game");
+            
+            var bg = new createjs.Shape();
+            bg.graphics.beginFill("#78C3EC")
+            .drawRect(0, 0, 800, 600);
+            stage.addChild(bg);
+            
+            //title
+            var text = new createjs.Text("NAVAL NEMESIS alpha", " 40px Stardos Stencil", "#fff").setTransform(10,10); 
+            text.shadow = new createjs.Shadow("#000000", 2, 2, 5);
+            stage.addChild(text);
+            
+            createGrid(20, 70, 10, 35);
+            createGrid(425, 70, 10, 35);
+            stage.update();
+            
+            function createGrid(x, y, gridSize, tileSize){
+                
+                var startX = 0;
+                var startY = 0;
+                var currentX = 0;
+                var currentY = 0;
+                var currentRow = 1;
+                
+                var grid = new createjs.Shape()
+                grid.graphics
+                    .setStrokeStyle(2)
+                    .beginStroke("#78EAEC");
+                    //.drawRect(10,10,100,100)
+                    //.drawRect(10,110,100,100);
+                
+                
+                for(var i=0; i<gridSize; i++){
+                    var g = grid.graphics;
+                    g.drawRect((startX+currentX),(startY+currentY),tileSize,tileSize)
+                    currentX+=tileSize;
+                    if((i+1)==gridSize && currentRow != gridSize){
+                        i=-1;
+                        currentX = startX;
+                        currentY+=tileSize;
+                        currentRow++;
+                        //console.log('currentX: '+currentX+' currentY: '+currentY+' currentRow: '+ currentRow);
+                    }
+                }
+                grid.setTransform(x, y);
+                
+                
+                
+                stage.addChild(grid);
+            }
+        }
+    </script>
+</head>
+<body onLoad="init();">
+    <canvas id="game" width="800" height="600">
+        alternate content
+    </canvas>
+    <div style="font-family: 'Stardos Stencil', cursive; color: transparent;">HI</div>
+</body>
+</html>
